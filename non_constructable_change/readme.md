@@ -3,7 +3,6 @@ Given an array of positive integers representing the values of coins in your pos
 
 
 ## Solution Explaination
-***
 
 The main trick here is to sort the coins array and for my current coin, calculate how much maximum sum I can create
 Eg: coins = [1, 4, 5]
@@ -15,7 +14,6 @@ Now if I compare my previous max amount till (i-1)th coin, I can add 1 to it and
 Thus we cannot create amount=2 with our current set of coins
 
 ## Mathematics
-***
 
 - Let cumulative amount till ith coin be C1
 - if C1 + 1 < (i+1)th element: return C1+1 value as change cannot be created

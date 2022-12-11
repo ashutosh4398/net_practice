@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Muli&display=swap');
-
-/* variables */
-:root {
-    --line-border-fill: #3498db;
-    --line-border-empty: #e0e0e0;
-}
+@import url('./variables.css');
 
 *{
     margin: 0;

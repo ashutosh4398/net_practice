@@ -47,3 +47,41 @@ def construct(arr):
 
 ```
 
+**Solution**
+- Let `(root.value-target)` be 'R1'
+- Let `(root.left.value - target)` be C1
+- Let `(root.right.value - target)` be C2
+
+- if R1 is less that C1 & C2 return `root.value`
+- if C1 is less than R1 and C2, traverse root.left
+- if C2 is less than R1 and C1, traverse root.right
+
+if we reach leaf node while traversing, return that leaf node which is indicated by false
+if parent's distance is less than direct children, then return parent's value as answer
+
+```Python
+def closestValue(tree, target):
+    if tree is None:
+        return False
+    parent_dist, left_dist, right_dist = -1, 10000, 10000
+    parent_dist = tree.value - target
+    
+    if tree.left:
+        left_dist = tree.left.value - target
+    if tree.right:
+        right_dist = tree.right.value - target
+    
+    min_dist, child = (left_dist, "left") if left_dist > right_dist else (right_dist, "right")
+    
+    if parent_dist < min_dist:
+        return tree.value
+    if child == "left":
+        resp = closestValue(tree.left, target)
+    if child == "right":
+        resp = closestValue(tree.right, target)
+
+    if resp == False:
+        return tree.value
+    return resp
+
+```

@@ -3,12 +3,16 @@ def tournamentWinner(competitions, results):
     # if results[i] = 1 => home team won
     # if results[i] = 0 => away team won
 
+    HOME_TEAM_WON = 1
+
     points_table = {}
     winner_team, max_points = None, 0
     for (competition, result) in zip(competitions, results):
 
+        home_team, away_team = competition
+        (winner,loser) = (home_team, away_team) if (result == HOME_TEAM_WON) else (away_team, home_team)
         # updating points table
-        (winner, loser) = (competition[0], competition[1]) if result == 1 else (competition[1], competition[0])
+        # (winner, loser) = (competition[0], competition[1]) if result == 1 else (competition[1], competition[0])
         points_table[winner] = points_table.get(winner,0) + 3
         points_table[loser] = points_table.get(loser,0)
 

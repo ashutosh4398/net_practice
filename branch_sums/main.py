@@ -17,8 +17,8 @@ def branchSumUtils(parent, sum_, sum_list):
     
     branchSumUtils(parent.left, sum_, sum_list)
     branchSumUtils(parent.right, sum_, sum_list)
-    # subtract the current node value after visiting
-    # so that we can maintain sum
+    # # subtract the current node value after visiting
+    # # so that we can maintain sum
     sum_ -= parent.value
     return sum_list
 

@@ -1,3 +1,4 @@
+# time: O(nlogn) | space: O(1)
 def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
     redShirtSpeeds.sort()
     if fastest:

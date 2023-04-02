@@ -1,3 +1,10 @@
+/* 
+    TIME: O(nlogn) | space: O(n) [
+        since we are using intermediate array for storing max values 
+        and then reducing it
+    ]
+*/
+
 const ASCENDING = 1;
 const DESCENDING = 0;
 

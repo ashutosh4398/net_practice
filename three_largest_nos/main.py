@@ -3,11 +3,11 @@ def insert(arr, element, pos):
         arr[i] = arr[i+1]
     arr[pos] = element
 
-def findThreeLargestNumbers(array):
+def findThreeLargestNumbers(array, n=3):
     # Write your code here.
-    largest_nos = [None, None, None]
+    largest_nos = [None for _ in range(n)]
     for elem in array:
-        for i in range(2,-1,-1):
+        for i in range(n-1,-1,-1):
             if not largest_nos[i]:
                 largest_nos[i] = elem
                 break

@@ -50,30 +50,53 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def countHeight(self, root: Optional[TreeNode]) -> int:
-        # since it is complete bst, we will keep going left
-        height = 0
-        while root:
-            height += 1
-            root = root.left
-        return height - 1
+    # def countHeight(self, root: Optional[TreeNode]) -> int:
+    #     # since it is complete bst, we will keep going left
+    #     height = 0
+    #     while root:
+    #         height += 1
+    #         root = root.left
+    #     return height - 1
     
-    def getNodesAtNthLevel(self, root: Optional[TreeNode], level: int) -> List[TreeNode]:
-        if level <= 0:
-            return [root]
-        elems_at_prev_level =  self.getNodesAtNthLevel(root, level-1)
-        temp = []
-        for elem in elems_at_prev_level:
-            if elem.left:
-                temp.append(elem.left)
-            if elem.right:
-                temp.append(elem.right)        
-        return temp
+    # def getNodesAtNthLevel(self, root: Optional[TreeNode], level: int) -> List[TreeNode]:
+    #     if level <= 0:
+    #         return [root]
+    #     elems_at_prev_level =  self.getNodesAtNthLevel(root, level-1)
+    #     temp = []
+    #     for elem in elems_at_prev_level:
+    #         if elem.left:
+    #             temp.append(elem.left)
+    #         if elem.right:
+    #             temp.append(elem.right)        
+    #     return temp
     
+    # def countNodes(self, root: Optional[TreeNode]) -> int:
+    #     tree_height = self.countHeight(root)
+    #     if tree_height < 0:
+    #         return 0
+    #     max_nodes_at_second_last_level = (2 ** tree_height) - 1
+    #     children = self.getNodesAtNthLevel(root, tree_height)
+    #     return max_nodes_at_second_last_level + len(children)
+
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        tree_height = self.countHeight(root)
-        if tree_height < 0:
+        return self.efficient_solution(root)
+    
+    def efficient_solution(self, root: Optional[TreeNode]) -> int:
+        if not root:
             return 0
-        max_nodes_at_second_last_level = (2 ** tree_height) - 1
-        children = self.getNodesAtNthLevel(root, tree_height)
-        return max_nodes_at_second_last_level + len(children)
+        
+        left_height = right_height = 0
+        left = right = root
+
+        while left:
+            left_height += 1
+            left = left.left
+        
+        while right:
+            right_height += 1
+            right = right.right
+        
+        if left_height == right_height:
+            return (2**(left_height+1-1)) - 1
+        
+        return 1 + self.efficient_solution(root.left) + self.efficient_solution(root.right)

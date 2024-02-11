@@ -61,15 +61,20 @@ class Solution:
         return prev
 
     def get_head_of_second_half(self, head: ListNode) -> ListNode:
-        list_length = self.get_length(head)
-        # reverse the second half of linked list
-        second_list_head = head
-        for _ in range(list_length//2):
-            second_list_head = second_list_head.next
+        # list_length = self.get_length(head)
+        # # reverse the second half of linked list
+        # second_list_head = head
+        # for _ in range(list_length//2):
+        #     second_list_head = second_list_head.next
         
-        if list_length % 2 != 0:
-            return second_list_head.next
-        return second_list_head
+        # if list_length % 2 != 0:
+        #     return second_list_head.next
+        # return second_list_head
+        slow = fast = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
 
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         first_half_head = head
@@ -85,8 +90,10 @@ class Solution:
 
 head = ListNode(1)
 head.next = ListNode(2)
-# head.next.next = ListNode(2)
-# head.next.next.next = ListNode(1)
+head.next.next = ListNode(3)
+head.next.next.next = ListNode(3)
+head.next.next.next.next = ListNode(2)
+head.next.next.next.next.next = ListNode(1)
 
 s = Solution()
 # s.print_list(head)

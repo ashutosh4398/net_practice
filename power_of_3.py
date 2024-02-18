@@ -39,10 +39,9 @@ class Solution:
             return False
         x = round(math.log(n,3), 3)
         return n == 3 ** x
-
+ 
 s = Solution()
 # print(s.isPowerOfThree(27))
 # print(s.isPowerOfThree(0))
 # print(s.isPowerOfThree(-1))
 print(s.isPowerOfThree(243))
-        

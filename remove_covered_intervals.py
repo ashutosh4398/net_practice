@@ -29,17 +29,29 @@ All the given intervals are unique.
 from typing import List
 
 class Solution:
-    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
-        removed_count = 0
-        for idx, interval in enumerate(intervals):
-            for sub_idx, sub_interval in enumerate(intervals):
-                if idx == sub_idx:
-                    continue
-                if interval[0] >= sub_interval[0] and interval[1] <= sub_interval[1]:
-                    removed_count += 1
-                    break
+    # def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+    #     removed_count = 0
+    #     for idx, interval in enumerate(intervals):
+    #         for sub_idx, sub_interval in enumerate(intervals):
+    #             if idx == sub_idx:
+    #                 continue
+    #             if interval[0] >= sub_interval[0] and interval[1] <= sub_interval[1]:
+    #                 removed_count += 1
+    #                 break
 
-        return len(intervals) - removed_count
+    #     return len(intervals) - removed_count
+    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+        # sort in increasing order and in case of tie, consider the interval with higher end value
+        intervals.sort(key=lambda i: (i[0], -i[1]))
+        res = [intervals[0]]
+        for l,r in intervals[1:]:
+            prev_left, prev_right = res[-1]
+            # current (l,r) is covered by previous interval
+            if prev_left <= l and prev_right >= r:
+                continue
+            res.append([l,r])
+        return len(res)
+
 
 def main():
     s = Solution()

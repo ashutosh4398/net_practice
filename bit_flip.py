@@ -55,11 +55,14 @@ class Solution:
             if g_bit != c_bit:
                 min_flips += 1
         return min_flips
+    
+    def efficient_approach(self, start: int, goal: int) -> int:
+        return bin(start ^ goal).count("1")
 
 def main():
     s = Solution()
-    print(s.minBitFlips(10, 7))
-    print(s.minBitFlips(3, 4))
+    print(s.efficient_approach(10, 7))
+    print(s.efficient_approach(3, 4))
 
 if __name__ == "__main__":
     main()

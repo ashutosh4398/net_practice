@@ -1,23 +1,82 @@
-def convert_to_roman(num:int) -> str:
-    integers = [10, 5, 1]
-    chars = ["X", "V", "I"]
-    final = ""
-    while num:
-        for int_rep, char_rep in zip(integers, chars):
-            quo = num // int_rep
-            if quo > 0:
-                final += char_rep * quo
-                num = num % int_rep
-                break
-            
-            if num == int_rep - 1:
-                final += f"I{char_rep}"
-                num = int_rep - 1 - num
-                break
-    
-    return final
+"""
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
-# print(convert_to_roman(14))
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
 
-for i in range(1,31):
-    print(i, convert_to_roman(i))
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+I can be placed before V (5) and X (10) to make 4 and 9. 
+X can be placed before L (50) and C (100) to make 40 and 90. 
+C can be placed before D (500) and M (1000) to make 400 and 900.
+Given an integer, convert it to a roman numeral.
+
+ 
+
+Example 1:
+
+Input: num = 3
+Output: "III"
+Explanation: 3 is represented as 3 ones.
+Example 2:
+
+Input: num = 58
+Output: "LVIII"
+Explanation: L = 50, V = 5, III = 3.
+Example 3:
+
+Input: num = 1994
+Output: "MCMXCIV"
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+ 
+
+Constraints:
+
+1 <= num <= 3999
+"""
+
+
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        roman_maps = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000,
+            "IV": 4,
+            "IX": 9,
+            "XL": 40,
+            "XC": 90,
+            "CD": 400,
+            "CM": 900,
+        }
+        final = ""
+        romans = sorted(roman_maps.items(), key=lambda x: x[1], reverse=True)
+
+        while num:
+            for char, val in romans:
+                quo = num // val
+                if quo > 0:
+                    final += quo * char
+                    num = num % val
+        return final
+
+
+def main():
+    s = Solution()
+    for i in range(1, 31):
+        print(s.intToRoman(i))
+
+
+if __name__ == "__main__":
+    main()

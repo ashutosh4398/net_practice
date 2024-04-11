@@ -55,15 +55,17 @@ class Solution:
         current_level = 0
         for log in logs:
             current_level += operations.get(log, 1)
-            current_level = max(current_level, 0) # to avoid negatives
+            current_level = max(current_level, 0)  # to avoid negatives
         return current_level
-    
+
+
 def main():
     s = Solution()
     print(s.minOperations(["../", "/d", "/d2", "../"]))
-    print(s.minOperations(["d1/","../","../","../"]))
-    print(s.minOperations(["d1/","d2/","./","d3/","../","d31/"]))
-    print(s.minOperations(["d1/","d2/","../","d21/","./"]))
+    print(s.minOperations(["d1/", "../", "../", "../"]))
+    print(s.minOperations(["d1/", "d2/", "./", "d3/", "../", "d31/"]))
+    print(s.minOperations(["d1/", "d2/", "../", "d21/", "./"]))
+
 
 if __name__ == "__main__":
     main()

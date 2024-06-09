@@ -1,0 +1,13 @@
+{% extends "common/base.html" %}
+{% block title %}
+    Welcome to chat app!
+{% endblock title %}
+
+{% block content %}
+    <h1>Hey there!!!</h1>
+    <ul>
+        <li><a href="{% url 'room' room_name='room1' %}">Room 1</a></li>
+        <li><a href="/rooms/room2/">Room 2</a></li>
+        <li><a href="/rooms/room3/">Room 3</a></li>
+    </ul>
+{% endblock content %}

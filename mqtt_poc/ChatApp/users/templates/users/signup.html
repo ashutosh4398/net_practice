@@ -1,0 +1,17 @@
+{% extends "common/base.html" %}
+{% block title %}
+    Login on Chat App!
+{% endblock title %}
+{% block content %}
+<form method="POST" action={% url 'signup' %}>
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{field.name}}">{{field.label}}</label>
+            {{field}}
+            <small class="text-danger">{{ field.errors }}</small>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Signup</button>
+  </form>
+{% endblock content %}

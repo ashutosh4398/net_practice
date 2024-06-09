@@ -1,0 +1,63 @@
+{% extends "common/base.html" %}
+{% block title %}Let's chat{% endblock title %}
+{% block content %}
+<div id="chatbox">
+    <h1>Chat Room : {{ room }}</h1>
+    {% for message in messages %}
+        <p>{{ message.content }}</p>
+    {% endfor %}
+</div>
+<input type="text" name="" id="message">
+<button onclick="sendMessage()">Send</button>
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function sendMessage() {
+    const message = document.getElementById("message").value;
+    fetch("{% url 'send_message' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRFToken': getCookie("csrftoken")
+        },
+        body: JSON.stringify({room: "{{room}}", content: message})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            document.getElementById("message").value = "";
+        }
+    });
+}
+
+const chatbox = document.getElementById("chatbox");
+const eventSource = new EventSource("/chat/events/{{room}}");
+eventSource.onmessage = function(event) {
+    console.log(event);
+    const p = document.createElement("p");
+    p.textContent = event.data;
+    chatbox.appendChild(p);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}; 
+</script>
+
+{% endblock scripts %}

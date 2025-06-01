@@ -37,7 +37,9 @@ from typing import List
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # O(n*m) -> n=len(strs), m=len(max string in strs)
         def arrange_string(string: str) -> str:
+            # time complexity => O(m) -> m is len of string
             if len(string) <= 1:
                 return string
             str_list = sorted(string)
@@ -51,7 +53,7 @@ class Solution:
                 count = 1
             output += f"{str_list[i+1]}{count}"
             return output
-        visited = {} # reformed_str: [og_strs]
+        visited = {} # reformed_str: [og_strs] -> space: O(n) -> n => len of strs
         for string in strs:
             reformed_string = arrange_string(string)
             visited[reformed_string] = visited.get(reformed_string, []) + [string]
